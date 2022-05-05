@@ -17,14 +17,16 @@ const Dashboard = (): ReactElement => {
   return (
     <div className="App">
       <p>WHOOP Username</p>
-      <input type="text" onChange={e => setUsername(e.target.value)} />
-      <p>WHOOP Password</p>
-      <input type="password" onChange={e => setPassword(e.target.value)} />
-      <br />
-      <button onClick={() => createApiHandler(username, password)}>Log In</button>
+      <form onSubmit={e => e.preventDefault()}>
+        <input type="text" onChange={e => setUsername(e.target.value)} />
+        <p>WHOOP Password</p>
+        <input type="password" onChange={e => setPassword(e.target.value)} />
+        <br />
+        <button onClick={() => createApiHandler(username, password)}>Log In</button>
+      </form>
       <p>{'Logged In: ' + (apiHandler ? true : false).toString()}</p>
       <button onClick={async () => {
-          const results = apiHandler && await apiHandler.getCycles(new Date(2022, 3, 5), new Date());
+          const results = apiHandler && await apiHandler.getCycles(new Date(2022, 4, 4), new Date());
           setCovid(results?.records[0].recovery.prob_covid ?? 0);
         }}>Click here for probability covid.</button>
       <p>{covid}</p>
